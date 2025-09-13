@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dengue Information Portal</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      :root {
+        --primary: #89CFF0; /* Baby blue */
+        --primary-light: #C9E9FF;
+        --primary-dark: #5DADE2;
+        --secondary: #AED6F1;
+        --accent: #85C1E9;
+        --neutral-light: #F7FBFF;
+        --neutral: #E3F2FD;
+        --neutral-dark: #BBDEFB;
+        --text: #2C3E50;
+        --text-light: #566573;
+        --success: #7DCEA0;
+        --warning: #F9E79F;
+        --danger: #F5B7B1;
+      }
+
+      body {
+        background-color: var(--neutral-light);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      nav {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-dark) 100%
+        );
+        padding: 1.2rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+      }
+
+      nav ul {
+        display: flex;
+        justify-content: center;
+        list-style-type: none;
+        max-width: 1200px;
+        margin: 0 auto;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      nav li {
+        margin: 0;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 0.8rem 1.8rem;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      nav a:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
+      }
+
+      .hero {
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+        margin-bottom: 3rem;
+        background: white;
+        border-radius: 16px;
+        padding: 2.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      }
+
+      .hero-content {
+        flex: 1;
+      }
+
+      .hero-image {
+        flex: 1;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease;
+      }
+
+      .hero-image:hover {
+        transform: scale(1.02);
+      }
+
+      .hero-image img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        display: block;
+      }
+
+      h1 {
+        color: var(--primary-dark);
+        font-size: 2.8rem;
+        margin-bottom: 1.2rem;
+        line-height: 1.2;
+        font-weight: 700;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        color: var(--text-light);
+        margin-bottom: 1.8rem;
+        line-height: 1.7;
+      }
+
+      section {
+        margin-bottom: 3rem;
+        padding: 2.5rem;
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      h2 {
+        color: var(--primary-dark);
+        margin-bottom: 1.8rem;
+        padding-bottom: 0.8rem;
+        border-bottom: 2px solid var(--primary-light);
+        display: flex;
+        align-items: center;
+        font-size: 1.8rem;
+      }
+
+      h2 i {
+        margin-right: 12px;
+        background: var(--neutral);
+        padding: 12px;
+        border-radius: 50%;
+        color: var(--primary-dark);
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      h3 {
+        color: var(--primary-dark);
+        margin: 1.8rem 0 1rem;
+        display: flex;
+        align-items: center;
+        font-size: 1.4rem;
+      }
+
+      h3 i {
+        margin-right: 10px;
+        font-size: 1.2rem;
+        color: var(--accent);
+      }
+
+      p {
+        margin-bottom: 1.2rem;
+        color: var(--text-light);
+        line-height: 1.7;
+      }
+
+      .factors-study-container {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .factors,
+      .study {
+        flex: 1;
+        padding: 2rem;
+        border-radius: 12px;
+        background: var(--neutral);
+      }
+
+      .factors {
+        border-left: 5px solid var(--secondary);
+      }
+
+      .study {
+        border-left: 5px solid var(--accent);
+      }
+
+      .factors h2,
+      .study h2 {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 1.5rem;
+        color: var(--primary-dark);
+        font-size: 1.5rem;
+      }
+
+      .factors ul {
+        list-style-type: none;
+      }
+
+      .factors li {
+        margin-bottom: 1rem;
+        padding-left: 2.2rem;
+        position: relative;
+        color: var(--text-light);
+      }
+
+      .factors li:before {
+        content: "•";
+        color: var(--secondary);
+        font-weight: bold;
+        font-size: 1.8rem;
+        position: absolute;
+        left: 0.8rem;
+        top: -0.4rem;
+      }
+
+      .map-item {
+        display: flex;
+        margin-bottom: 3.5rem;
+        align-items: center;
+        gap: 2.5rem;
+      }
+
+      .map-item.reverse {
+        flex-direction: row-reverse;
+      }
+
+      .map-image {
+        flex: 1;
+        padding: 1rem;
+        border-radius: 12px;
+        background: var(--neutral);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .map-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        transition: transform 0.5s ease;
+      }
+
+      .map-image img:hover {
+        transform: scale(1.05);
+      }
+
+      .map-description {
+        flex: 1;
+        padding: 1rem;
+      }
+
+      .prevention-tips {
+        background-color: var(--neutral);
+        padding: 1.8rem;
+        border-radius: 12px;
+        margin: 1.8rem 0;
+        border-left: 5px solid var(--success);
+      }
+
+      .prevention-tips h4 {
+        color: var(--primary-dark);
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: center;
+        font-size: 1.3rem;
+      }
+
+      .prevention-tips ul {
+        list-style-type: none;
+      }
+
+      .prevention-tips li {
+        margin-bottom: 0.8rem;
+        padding-left: 2rem;
+        position: relative;
+        color: var(--text-light);
+      }
+
+      .prevention-tips li:before {
+        content: "✓";
+        color: var(--success);
+        font-weight: bold;
+        position: absolute;
+        left: 0.5rem;
+      }
+
+      .stats-container {
+        display: flex;
+        gap: 1.5rem;
+        margin: 2.5rem 0;
+        flex-wrap: wrap;
+      }
+
+      .stat-box {
+        flex: 1;
+        min-width: 200px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-light) 0%,
+          var(--primary) 100%
+        );
+        color: white;
+        padding: 2rem 1.5rem;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease;
+      }
+
+      .stat-box:hover {
+        transform: translateY(-5px);
+      }
+
+      .stat-number {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      footer {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-dark) 100%
+        );
+        color: white;
+        text-align: center;
+        padding: 3rem 1.5rem;
+        margin-top: 4rem;
+      }
+
+      .footer-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 2.5rem;
+        margin: 2rem 0;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        color: white;
+        text-decoration: none;
+        transition: opacity 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .footer-links a:hover {
+        opacity: 0.8;
+        text-decoration: underline;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .animated {
+        animation: fadeIn 0.8s ease forwards;
+      }
+
+      .delay-1 {
+        animation-delay: 0.2s;
+      }
+      .delay-2 {
+        animation-delay: 0.4s;
+      }
+      .delay-3 {
+        animation-delay: 0.6s;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 900px) {
+        .factors-study-container {
+          flex-direction: column;
+        }
+
+        .map-item,
+        .map-item.reverse {
+          flex-direction: column;
+        }
+
+        .hero {
+          flex-direction: column;
+        }
+
+        h1 {
+          font-size: 2.2rem;
+        }
+
+        nav ul {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        nav li {
+          margin: 0.3rem 0;
+          width: 100%;
+          text-align: center;
+        }
+
+        section {
+          padding: 1.8rem;
+        }
+      }
+
+      /* Scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--neutral);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--primary-light);
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--primary);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li>
+          <a href="#overview"><i class="fas fa-info-circle"></i> Overview</a>
+        </li>
+        <li>
+          <a href="#maps"><i class="fas fa-map-marked-alt"></i> Maps & Data</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <div class="hero animated">
+        <div class="hero-content">
+          <h1>Dengue Spread in Urban Settings</h1>
+          <p>
+           Dengue has been a recurring public health concern in the Philippines for many years. The country recorded its highest number of cases in 2019, with 490,453 reported nationwide.
+          </p>
+        </div>
+        <div class="hero-image">
+          <img
+            src="img/3d-mosquito-studio_23-2151409949.jpg"
+            alt="Mosquito on skin"
+          />
+        </div>
+      </div>
+
+      <section id="overview" class="animated">
+        <h2><i class="fas fa-info-circle"></i> Overview</h2>
+
+        <div class="factors-study-container">
+          <div class="factors">
+            <h2>Factors Contributing to Dengue Spread</h2>
+            <ul>
+              <li>Pollution</li>
+              <li>Environmental Factors</li>
+              <li>Seasonal Change</li>
+              <li>Population Density</li>
+              <li>Poor Waste management</li>
+              <li>Drainage and Stagnant Waters</li>
+            </ul>
+          </div>
+
+          <div class="study">
+            <h2>CASE STUDY: MAKATI CITY</h2>
+            <p>
+             A team of researchers sought to identify which areas are more susceptible to dengue transmission. For this study, Makati City was chosen as the research locale because it is a densely populated urban area with a major business district, making it an ideal setting to study how dengue spreads in highly urbanized environments. This study focuses only on barangay-level data rather than individual street data.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="maps" class="animated">
+        <h2><i class="fas fa-map-marked-alt"></i> Dengue Maps & Data</h2>
+
+        <div class="map-item animated">
+          <div class="map-image">
+            <img
+              src="img/images.jpg"
+              alt="World map showing global distribution of dengue fever cases"
+            />
+          </div>
+          <div class="map-description">
+            <h3>
+             <i class="fas fa-map-marked-alt"></i> Map 1
+            </h3>
+            <p>
+              Map 1 shows the dengue distribution of Makati City during 2020 to 2021, which was the time where COVID-19 was at its peak. During this time, multiple lockdowns were set in place to prevent the spread of COVID-19, which would mean other diseases that are mostly caught outdoors (like dengue) have significantly lowered than those of previous years.
+            </p>
+            <p>
+             Keeping this at mind, we can compare this map to other maps that illustrate dengue distribution in later years, where the lockdowns have been lifted and when the COVID-19 pandemic started to subside. This allows us to observe how the return of normal mobility patterns and public health conditions may have influenced the spread of dengue in Makati City.
+            </p>
+          </div>
+        </div>
+
+        <div class="map-item reverse animated">
+          <div class="map-image">
+            <img
+              src="img/images.jpg"
+              alt="Chart showing seasonal patterns of dengue outbreaks"
+            />
+          </div>
+          <div class="map-description">
+            <h3><i class="fas fa-map-marked-alt"></i> Map 2</h3>
+            <p>
+              Map 2 illustrates dengue distribution from the year 2022, where the pandemic started to subside and public mobility started to go back to normal. As shown, dengue cases have significantly increased compared to the dengue cases during the years prior.
+            </p>
+            <p>
+             This increase can be attributed to the resumption of normal activities, increased mobility, and potentially reduced focus on mosquito control measures during the pandemic period.
+            </p>
+          </div>
+        </div>
+
+        <div class="map-item animated">
+          <div class="map-image">
+            <img
+              src="img/images.jpg"
+              alt="Timeline map showing major historical dengue outbreaks"
+            />
+          </div>
+          <div class="map-description">
+            <h3><i class="fas fa-map-marked-alt"></i> Map 3</h3>
+            <p>
+              Map 3 shows the comparative analysis of dengue hotspots across different barangays in Makati City. The data visualization helps identify areas that require more targeted interventions and public health resources to combat dengue transmission effectively.
+            </p>
+            <p>
+              The patterns observed in this map can guide policymakers in allocating resources and implementing preventive measures in the most vulnerable areas of the city.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    <script>
+      // Simple animation on scroll
+      document.addEventListener("DOMContentLoaded", function () {
+        const animatedElements = document.querySelectorAll(".animated");
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = 1;
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        animatedElements.forEach((element) => {
+          element.style.opacity = 0;
+          element.style.transition = "opacity 0.8s ease";
+          observer.observe(element);
+        });
+      });
+    </script>
+  </body>
+</html>
