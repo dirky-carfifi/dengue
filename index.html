@@ -111,6 +111,7 @@
         overflow: hidden;
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
         transition: transform 0.3s ease;
+        cursor: pointer;
       }
 
       .hero-image:hover {
@@ -194,7 +195,6 @@
         margin-bottom: 1.2rem;
         color: var(--text-light);
         line-height: 1.7;
-        font-size: 20px;
       }
 
       .factors-study-container {
@@ -269,6 +269,7 @@
         justify-content: center;
         align-items: center;
         overflow: hidden;
+        cursor: pointer;
       }
 
       .map-image img {
@@ -413,6 +414,7 @@
         padding: 1.5rem;
         border-radius: 12px;
         margin-bottom: 1.5rem;
+        cursor: pointer;
       }
 
       .graph-container img,
@@ -421,6 +423,12 @@
         border-radius: 8px;
         margin-bottom: 1rem;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease;
+      }
+
+      .graph-container img:hover,
+      .moran-container img:hover {
+        transform: scale(1.03);
       }
 
       .callout-box {
@@ -468,6 +476,60 @@
         font-size: 1.1rem;
       }
 
+      /* Modal styles for expanded images */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        padding-top: 50px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.9);
+        animation: fadeIn 0.3s ease;
+      }
+
+      .modal-content {
+        display: block;
+        margin: 0 auto;
+        max-width: 90%;
+        max-height: 80vh;
+        border-radius: 8px;
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+      }
+
+      .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .caption {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+        text-align: center;
+        color: #ccc;
+        padding: 10px 0;
+        height: 150px;
+        font-size: 1.1rem;
+      }
+
       /* Animations */
       @keyframes fadeIn {
         from {
@@ -476,6 +538,15 @@
         }
         to {
           opacity: 1;
+        }
+      }
+
+      @keyframes zoom {
+        from {
+          transform: scale(0.9);
+        }
+        to {
+          transform: scale(1);
         }
       }
 
@@ -530,6 +601,16 @@
         .data-visualization {
           flex-direction: column;
         }
+
+        .modal-content {
+          max-width: 95%;
+        }
+
+        .close {
+          top: 10px;
+          right: 20px;
+          font-size: 30px;
+        }
       }
 
       /* Scrollbar styling */
@@ -552,6 +633,13 @@
     </style>
   </head>
   <body>
+    <!-- Modal for expanded images -->
+    <div id="imageModal" class="modal">
+      <span class="close">&times;</span>
+      <img class="modal-content" id="expandedImg" />
+      <div id="caption" class="caption"></div>
+    </div>
+
     <nav>
       <ul>
         <li>
@@ -560,7 +648,6 @@
         <li>
           <a href="#maps"><i class="fas fa-map-marked-alt"></i> Maps & Data</a>
         </li>
-        <li>
       </ul>
     </nav>
 
@@ -589,17 +676,24 @@
 
       <section id="overview" class="animated">
         <h2><i class="fas fa-info-circle"></i> Overview</h2>
+        <p class="section-intro">
+          Dengue fever is a mosquito-borne viral infection that poses a
+          significant public health challenge in tropical and subtropical
+          regions, including the Philippines. Urban environments present unique
+          conditions that can facilitate the spread of dengue.
+        </p>
 
         <div class="factors-study-container">
           <div class="factors">
             <h2>
-              <i class="fas fa-exclamation-triangle"></i> Factors that influence the spread of dengue include but are not limited for:
+              <i class="fas fa-exclamation-triangle"></i> Factors Contributing
+              to Dengue Spread
             </h2>
             <ul>
               <li>Pollution</li>
               <li>Environmental Factors</li>
               <li>Seasonal Changes</li>
-              <li>Pollution Density</li>
+              <li>Population Density</li>
               <li>Poor Waste management</li>
               <li>Drainage and Stagnant Waters</li>
             </ul>
@@ -622,78 +716,86 @@
             </p>
           </div>
         </div>
+
       </section>
 
       <section id="maps" class="animated">
         <h2><i class="fas fa-map-marked-alt"></i> Dengue Maps & Data</h2>
 
         <div class="map-item animated">
-          <div class="map-image">
+          <div class="map-image" onclick="expandImage(this)">
             <img
               src="img/map1.jpg"
-              alt="Map showing dengue distribution in Makati City during 2020-2021"
-            />
+              />
           </div>
           <div class="map-description">
             <h3>
-              <i class="fas fa-map-marked-alt"></i>Map 1
+              <i class="fas fa-map-marked-alt"></i> 
+              Map 1
             </h3>
             <p>
-              Map 1 shows the dengue distribution of Makati City during 2021, which was the time where COVID-19 was at its peak. During this time, multiple lock downs are set in place to prevent the spread of COVID-19, which would mean other diseases that are mostly caught outdoors (like dengue) have significantly lowered than those of previous years.
+              Map 1 shows the dengue distribution of Makati City during 2020 to
+              2021, which was the time where COVID-19 was at its peak. During
+              this time, multiple lockdowns were set in place to prevent the
+              spread of COVID-19, which would mean other diseases that are
+              mostly caught outdoors (like dengue) have significantly lowered
+              than those of previous years.
             </p>
             <p>
-              The highest amount of cases recorded during this time was 32 in Olympia. Keeping this in mind, we can compare this map to other maps that illustratedengue distribution in later years, where the locked of COVID-19 pandemic started to subside. This allows us to observe how the return of normal mobility patterns and public health conditions may have influence the pread of dengue in Makati City
+              Keeping this at mind, we can compare this map to other maps that
+              illustrate dengue distribution in later years, where the lockdowns
+              have been lifted and when the COVID-19 pandemic started to
+              subside. This allows us to observe how the return of normal
+              mobility patterns and public health conditions may have influenced
+              the spread of dengue in Makati City.
             </p>
           </div>
         </div>
 
         <div class="map-item reverse animated">
-          <div class="map-image">
+          <div class="map-image" onclick="expandImage(this)">
             <img
               src="img/map2.jpg"
-              alt="Map showing dengue distribution in Makati City during 2022"
             />
           </div>
           <div class="map-description">
             <h3>
-              <i class="fas fa-map-marked-alt"></i>Map 2
+              <i class="fas fa-map-marked-alt"></i> Map 2
             </h3>
             <p>
-             Now, Map 2 illustrates dengue distribution from the year 2022, where the pandemic started to subside and public mobility started to go back to normal. As shown, dengue cases have significantly increased compared to the dengue cases during the years prior.
+              Map 2 illustrates dengue distribution from the year 2022, where
+              the pandemic started to subside and public mobility started to go
+              back to normal. As shown, dengue cases have significantly
+              increased compared to the dengue cases during the years prior.
             </p>
             <p>
-              Now, Map 2 illustrates dengue distribution from the year 2022, where the pandemic started to subside and public mobility started to go back to normal. As shown, dengue cases have significantly increased compared to the dengue cases during the years prior.
+              IN 2022, the barangay that recorded the highest cases was Pio Del Pilar as 63 cases. Which is noticably higher than the previous year during the pandemic. Noting this, we can deduce that the decrease in restrictions and increase in mobility has also increased the dengue cases of Makati City.
             </p>
           </div>
         </div>
 
         <h3><i class="fas fa-chart-bar"></i> Data Analysis</h3>
         <div class="factors-study-container data-visualization">
-          <div class="graph-container">
+          <div class="graph-container" onclick="expandImage(this)">
             <img
               src="img/graph.jpg"
-              alt="Graph showing dengue case trends over time"
-            />
+              />
             <p>
               This line graph presents the temporal analysis of dengue cases in Makati City. The barangays are grouped respective of their location into 4 clusters. As shown, dengue cases has its lowest point in 2021, which increased two-fold in 2022, and gradually increased in 2023, with the highest increased in 2024, which was two times the amount of 2023. With Westside consistently being in the top.
             </p>
           </div>
 
-          <div class="moran-container">
+          <div class="moran-container" onclick="expandImage(this)">
             <img
               src="img/moran.jpg"
-              alt="Statistical analysis of dengue distribution"
-            />
+              />
             <p>
-             Additionally, Moran's I was used to see is their are any spatial clustering. The result was a weak positive analysis of 0.032, which means that there is only slight spatial clustering
+              Additionally, Moran's I was used to see is their are any spatial clustering. The result was a weak positive analysis of 0.032, which means that there is only slight spatial clustering.
             </p>
           </div>
         </div>
 
-        
-    </div>
 
-    
     <script>
       // Simple animation on scroll
       document.addEventListener("DOMContentLoaded", function () {
@@ -730,6 +832,52 @@
             });
           });
         });
+      });
+
+      // Function to expand images
+      function expandImage(element) {
+        // Get the modal
+        var modal = document.getElementById("imageModal");
+
+        // Get the image and insert it inside the modal
+        var modalImg = document.getElementById("expandedImg");
+        var captionText = document.getElementById("caption");
+
+        // Set image source and caption
+        const imgElement = element.querySelector("img");
+        modalImg.src = imgElement.src;
+        captionText.innerHTML = imgElement.alt;
+
+        // Show the modal
+        modal.style.display = "block";
+
+        // Add animation to modal content
+        modalImg.style.animation = "zoom 0.3s ease forwards";
+      }
+
+      // Get the modal
+      var modal = document.getElementById("imageModal");
+
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function () {
+        modal.style.display = "none";
+      };
+
+      // Close modal when clicking outside of image
+      modal.onclick = function (event) {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      // Close modal with Escape key
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && modal.style.display === "block") {
+          modal.style.display = "none";
+        }
       });
     </script>
   </body>
