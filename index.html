@@ -17,19 +17,19 @@
       }
 
       :root {
-        --primary: #89CFF0; /* Baby blue */
-        --primary-light: #C9E9FF;
-        --primary-dark: #5DADE2;
-        --secondary: #AED6F1;
-        --accent: #85C1E9;
-        --neutral-light: #F7FBFF;
-        --neutral: #E3F2FD;
-        --neutral-dark: #BBDEFB;
-        --text: #2C3E50;
+        --primary: #89cff0; /* Baby blue */
+        --primary-light: #c9e9ff;
+        --primary-dark: #5dade2;
+        --secondary: #aed6f1;
+        --accent: #85c1e9;
+        --neutral-light: #f7fbff;
+        --neutral: #e3f2fd;
+        --neutral-dark: #bbdefb;
+        --text: #2c3e50;
         --text-light: #566573;
-        --success: #7DCEA0;
-        --warning: #F9E79F;
-        --danger: #F5B7B1;
+        --success: #7dcea0;
+        --warning: #f9e79f;
+        --danger: #f5b7b1;
       }
 
       body {
@@ -194,6 +194,7 @@
         margin-bottom: 1.2rem;
         color: var(--text-light);
         line-height: 1.7;
+        font-size: 20px;
       }
 
       .factors-study-container {
@@ -399,6 +400,74 @@
         text-decoration: underline;
       }
 
+      /* New styles for improved layout */
+      .data-visualization {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .graph-container,
+      .moran-container {
+        background: var(--neutral);
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+      }
+
+      .graph-container img,
+      .moran-container img {
+        width: 100%;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      }
+
+      .callout-box {
+        background: var(--warning);
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin: 1.5rem 0;
+        border-left: 5px solid #f1c40f;
+      }
+
+      .callout-box h4 {
+        color: var(--text);
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .callout-box p {
+        color: var(--text);
+        margin-bottom: 0;
+      }
+
+      .btn {
+        display: inline-block;
+        background: var(--primary);
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        margin-top: 1rem;
+      }
+
+      .btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .section-intro {
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+      }
+
       /* Animations */
       @keyframes fadeIn {
         from {
@@ -457,6 +526,10 @@
         section {
           padding: 1.8rem;
         }
+
+        .data-visualization {
+          flex-direction: column;
+        }
       }
 
       /* Scrollbar styling */
@@ -487,6 +560,7 @@
         <li>
           <a href="#maps"><i class="fas fa-map-marked-alt"></i> Maps & Data</a>
         </li>
+        <li>
       </ul>
     </nav>
 
@@ -495,8 +569,15 @@
         <div class="hero-content">
           <h1>Dengue Spread in Urban Settings</h1>
           <p>
-           Dengue has been a recurring public health concern in the Philippines for many years. The country recorded its highest number of cases in 2019, with 490,453 reported nationwide.
+            Dengue has been a recurring public health concern in the Philippines
+            for many years. The country recorded its highest number of cases in
+            2019, with 490,453 reported nationwide. Understanding the patterns
+            and factors behind dengue transmission is crucial for effective
+            prevention and control.
           </p>
+          <a href="#overview" class="btn"
+            >Learn More <i class="fas fa-arrow-down"></i
+          ></a>
         </div>
         <div class="hero-image">
           <img
@@ -511,21 +592,33 @@
 
         <div class="factors-study-container">
           <div class="factors">
-            <h2>Factors Contributing to Dengue Spread</h2>
+            <h2>
+              <i class="fas fa-exclamation-triangle"></i> Factors that influence the spread of dengue include but are not limited for:
+            </h2>
             <ul>
               <li>Pollution</li>
               <li>Environmental Factors</li>
-              <li>Seasonal Change</li>
-              <li>Population Density</li>
+              <li>Seasonal Changes</li>
+              <li>Pollution Density</li>
               <li>Poor Waste management</li>
               <li>Drainage and Stagnant Waters</li>
             </ul>
           </div>
 
           <div class="study">
-            <h2>CASE STUDY: MAKATI CITY</h2>
+            <h2><i class="fas fa-microscope"></i> CASE STUDY: MAKATI CITY</h2>
             <p>
-             A team of researchers sought to identify which areas are more susceptible to dengue transmission. For this study, Makati City was chosen as the research locale because it is a densely populated urban area with a major business district, making it an ideal setting to study how dengue spreads in highly urbanized environments. This study focuses only on barangay-level data rather than individual street data.
+              A team of researchers sought to identify which areas are more
+              susceptible to dengue transmission. For this study, Makati City
+              was chosen as the research locale because it is a densely
+              populated urban area with a major business district, making it an
+              ideal setting to study how dengue spreads in highly urbanized
+              environments.
+            </p>
+            <p>
+              This study focuses on barangay-level data to identify patterns and
+              hotspots of dengue transmission, providing valuable insights for
+              targeted public health interventions.
             </p>
           </div>
         </div>
@@ -537,19 +630,19 @@
         <div class="map-item animated">
           <div class="map-image">
             <img
-              src="img/images.jpg"
-              alt="World map showing global distribution of dengue fever cases"
+              src="img/map1.jpg"
+              alt="Map showing dengue distribution in Makati City during 2020-2021"
             />
           </div>
           <div class="map-description">
             <h3>
-             <i class="fas fa-map-marked-alt"></i> Map 1
+              <i class="fas fa-map-marked-alt"></i>Map 1
             </h3>
             <p>
-              Map 1 shows the dengue distribution of Makati City during 2020 to 2021, which was the time where COVID-19 was at its peak. During this time, multiple lockdowns were set in place to prevent the spread of COVID-19, which would mean other diseases that are mostly caught outdoors (like dengue) have significantly lowered than those of previous years.
+              Map 1 shows the dengue distribution of Makati City during 2021, which was the time where COVID-19 was at its peak. During this time, multiple lock downs are set in place to prevent the spread of COVID-19, which would mean other diseases that are mostly caught outdoors (like dengue) have significantly lowered than those of previous years.
             </p>
             <p>
-             Keeping this at mind, we can compare this map to other maps that illustrate dengue distribution in later years, where the lockdowns have been lifted and when the COVID-19 pandemic started to subside. This allows us to observe how the return of normal mobility patterns and public health conditions may have influenced the spread of dengue in Makati City.
+              The highest amount of cases recorded during this time was 32 in Olympia. Keeping this in mind, we can compare this map to other maps that illustratedengue distribution in later years, where the locked of COVID-19 pandemic started to subside. This allows us to observe how the return of normal mobility patterns and public health conditions may have influence the pread of dengue in Makati City
             </p>
           </div>
         </div>
@@ -557,40 +650,50 @@
         <div class="map-item reverse animated">
           <div class="map-image">
             <img
-              src="img/images.jpg"
-              alt="Chart showing seasonal patterns of dengue outbreaks"
+              src="img/map2.jpg"
+              alt="Map showing dengue distribution in Makati City during 2022"
             />
           </div>
           <div class="map-description">
-            <h3><i class="fas fa-map-marked-alt"></i> Map 2</h3>
+            <h3>
+              <i class="fas fa-map-marked-alt"></i>Map 2
+            </h3>
             <p>
-              Map 2 illustrates dengue distribution from the year 2022, where the pandemic started to subside and public mobility started to go back to normal. As shown, dengue cases have significantly increased compared to the dengue cases during the years prior.
+             Now, Map 2 illustrates dengue distribution from the year 2022, where the pandemic started to subside and public mobility started to go back to normal. As shown, dengue cases have significantly increased compared to the dengue cases during the years prior.
             </p>
             <p>
-             This increase can be attributed to the resumption of normal activities, increased mobility, and potentially reduced focus on mosquito control measures during the pandemic period.
+              Now, Map 2 illustrates dengue distribution from the year 2022, where the pandemic started to subside and public mobility started to go back to normal. As shown, dengue cases have significantly increased compared to the dengue cases during the years prior.
             </p>
           </div>
         </div>
 
-        <div class="map-item animated">
-          <div class="map-image">
+        <h3><i class="fas fa-chart-bar"></i> Data Analysis</h3>
+        <div class="factors-study-container data-visualization">
+          <div class="graph-container">
             <img
-              src="img/images.jpg"
-              alt="Timeline map showing major historical dengue outbreaks"
+              src="img/graph.jpg"
+              alt="Graph showing dengue case trends over time"
             />
-          </div>
-          <div class="map-description">
-            <h3><i class="fas fa-map-marked-alt"></i> Map 3</h3>
             <p>
-              Map 3 shows the comparative analysis of dengue hotspots across different barangays in Makati City. The data visualization helps identify areas that require more targeted interventions and public health resources to combat dengue transmission effectively.
+              This line graph presents the temporal analysis of dengue cases in Makati City. The barangays are grouped respective of their location into 4 clusters. As shown, dengue cases has its lowest point in 2021, which increased two-fold in 2022, and gradually increased in 2023, with the highest increased in 2024, which was two times the amount of 2023. With Westside consistently being in the top.
             </p>
+          </div>
+
+          <div class="moran-container">
+            <img
+              src="img/moran.jpg"
+              alt="Statistical analysis of dengue distribution"
+            />
             <p>
-              The patterns observed in this map can guide policymakers in allocating resources and implementing preventive measures in the most vulnerable areas of the city.
+             Additionally, Moran's I was used to see is their are any spatial clustering. The result was a weak positive analysis of 0.032, which means that there is only slight spatial clustering
             </p>
           </div>
         </div>
-      </section>
 
+        
+    </div>
+
+    
     <script>
       // Simple animation on scroll
       document.addEventListener("DOMContentLoaded", function () {
@@ -611,6 +714,21 @@
           element.style.opacity = 0;
           element.style.transition = "opacity 0.8s ease";
           observer.observe(element);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll("nav a").forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute("href");
+            const targetElement = document.querySelector(targetId);
+
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: "smooth",
+            });
+          });
         });
       });
     </script>
